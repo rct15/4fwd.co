@@ -6,7 +6,7 @@ const config = {
   custom_link: false, // Allow users to customize the short url.
   overwrite_kv: false, // Allow user to overwrite an existed key.
   snapchat_mode: false, // The link will be distroyed after access.
-  visit_count: false, // Count visit times.
+  visit_count: true, // Count visit times.
   load_kv: true, // Load all from Cloudflare KV
   system_type: "shorturl", // shorturl, imghost, other types {pastebin, journal}
 }
