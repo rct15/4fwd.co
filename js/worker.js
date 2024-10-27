@@ -295,10 +295,9 @@ async function handleRequest(request) {
   // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
-    return new Response(``, {
+    return new Response(frontpage_html, {
        status: 200,
        headers: response_header,
-       url: frontpage_html,
       })
   }
 
