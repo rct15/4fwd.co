@@ -295,12 +295,11 @@ async function handleRequest(request) {
   // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
-    return new Response(``
-      {
+    return new Response(``, {
        status: 200,
        headers: response_header,
        url: frontpage_html,
-      }
+      })
   }
 
   // 如果path符合password 显示操作页面index.html
