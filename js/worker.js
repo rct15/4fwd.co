@@ -294,11 +294,10 @@ async function handleRequest(request) {
   // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
-    return Response.redirect("https://github.com/rct15/4fwd.co", 302)
-    /* new Response(html404, {
+    return new Response(``, {
       headers: response_header,
       status: 404
-    }) */
+    })
   }
 
   // 如果path符合password 显示操作页面index.html
