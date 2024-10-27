@@ -10,7 +10,7 @@ let apiSrv = "https://rct15.github.io/4fwd.co/"
 let buildValueItemFunc = buildValueTxt
 
 function shorturl() {
-  if (document.querySelector("#longURL").value == "") {
+  if (document.querySelector("#longURL").value == null) {
     alert("Url cannot be empty!")
     return
   }
