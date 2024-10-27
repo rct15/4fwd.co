@@ -16,7 +16,7 @@ const protect_keylist = [
   "password",
 ]
 
-let frontpage_html = "https://rct15.github.io/4fwd.co/"
+let frontpage_html = "https://rct15.github.io/4fwd.co/index.html"
 let index_html = "https://rct15.github.io/4fwd.co/html/" + config.theme + "/index.html"
 let result_html = "https://rct15.github.io/4fwd.co/html/" + config.theme + "/result.html"
 
