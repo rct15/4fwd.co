@@ -1,3 +1,5 @@
+# wrangler.toml (wrangler v3.79.0^)
+
 name = "my-worker"
 main = "./worker.js"
 compatibility_date = "2024-10-26"
@@ -6,3 +8,7 @@ assets = { directory = "./", binding = "ASSETS" }
 kv_namespaces = [
   { binding = "LINKS", id = "b8607ecba5084700a6cddf90bcd1dd08" }
 ]
+
+[observability]
+enabled = true
+head_sampling_rate = 1
