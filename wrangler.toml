@@ -3,3 +3,6 @@ main = "./worker.js"
 compatibility_date = "2024-10-26"
 
 assets = { directory = "./", binding = "ASSETS" }
+kv_namespaces = [
+  { binding = "LINKS", id = "b8607ecba5084700a6cddf90bcd1dd08" }
+]
