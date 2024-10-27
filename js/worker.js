@@ -296,6 +296,7 @@ async function handleRequest(request) {
   // If visit this worker directly (no path)
   if (!path) {
     let index = await fetch(frontpage_html)
+    index = await index.text()
     return new Response(index, {
        status: 200,
        headers: response_header,
