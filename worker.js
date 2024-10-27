@@ -1,6 +1,6 @@
 const config = {
   result_page: true, // After get the value from KV, if use a page to show the result.
-  theme: "theme/urlcool", // Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "theme/urlcool" .
+  theme: "", // Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "theme/urlcool" .
   cors: true, // Allow Cross-origin resource sharing for API requests.
   unique_link: false, // If it is true, the same long url will be shorten into the same short url
   custom_link: false, // Allow users to customize the short url.
