@@ -1,7 +1,7 @@
 let res
 
 // let apiSrv = window.location.pathname
-let password_value = test //document.querySelector("#passwordText").value
+let password_value = "test" //document.querySelector("#passwordText").value
 let apiSrv = "https://4fwd-co.ricmpf.workers.dev/"
 // let password_value = "journaljournal"
 
