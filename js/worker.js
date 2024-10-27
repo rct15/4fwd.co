@@ -16,15 +16,15 @@ const protect_keylist = [
   "password",
 ]
 
-let index_html = "https://github.com/rct15/4fwd.co/" + config.theme + "/index.html"
-let result_html = "https://github.com/rct15/4fwd.co/" + config.theme + "/result.html"
+let index_html = "https://rct15.github.io/4fwd.co/" + config.theme + "/index.html"
+let result_html = "https://rct15.github.io/4fwd.co/" + config.theme + "/result.html"
 
 const html404 = `<!DOCTYPE html>
   <html>
   <body>
     <h1>404 Not Found.</h1>
     <p>The url you visit is not found.</p>
-    <p> <a href="hhttps://github.com/rct15/4fwd.co/" target="_self">Fork me on GitHub</a> </p>
+    <p> <a href="hhttps://rct15.github.io/4fwd.co/" target="_self">Fork me on GitHub</a> </p>
   </body>
   </html>`
 
@@ -294,7 +294,7 @@ async function handleRequest(request) {
   // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
-    return new Response(``, {
+    return new Response(html404, {
       headers: response_header,
       status: 404
     })
