@@ -24,7 +24,7 @@ const html404 = `<!DOCTYPE html>
   <body>
     <h1>404 Not Found.</h1>
     <p>The url you visit is not found.</p>
-    <p> <a href="hhttps://rct15.github.io/4fwd.co/" target="_self">Fork me on GitHub</a> </p>
+    <p> <a href="https://rct15.github.io/4fwd.co/" target="_self">Fork me on GitHub</a> </p>
   </body>
   </html>`
 
