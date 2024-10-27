@@ -294,7 +294,7 @@ async function handleRequest(request) {
   // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
-    return //Response.redirect("https://zelikk.blogspot.com/search/label/Url-Shorten-Worker", 302)
+    return /* Response.redirect("https://zelikk.blogspot.com/search/label/Url-Shorten-Worker", 302) */
        new Response(html404, {
       headers: response_header,
       status: 404
