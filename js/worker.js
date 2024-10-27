@@ -16,6 +16,7 @@ const protect_keylist = [
   "password",
 ]
 
+let frontpage_html = "https://rct15.github.io/4fwd.co/"
 let index_html = "https://rct15.github.io/4fwd.co/html/" + config.theme + "/index.html"
 let result_html = "https://rct15.github.io/4fwd.co/html/" + config.theme + "/result.html"
 
@@ -294,7 +295,12 @@ async function handleRequest(request) {
   // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
-    return new Response(`{"status":200, "headers":response_header, "url": "https://rct15.github.io/4fwd.co/"}`)
+    return new Response(``
+      {
+       status: 200,
+       headers: response_header,
+       url: frontpage_html,
+      }
   }
 
   // 如果path符合password 显示操作页面index.html
