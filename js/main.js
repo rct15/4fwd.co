@@ -1,8 +1,8 @@
 let res
 
-// let apiSrv = window.location.pathname
+let apiSrv = window.location.pathname
 let password_value = document.querySelector("#passwordText").value
-let apiSrv = "https://rct15.github.io/4fwd.co/"
+//let apiSrv = "https://rct15.github.io/4fwd.co/"
 // let password_value = "journaljournal"
 
 // 这是默认行为, 在不同的index.html中可以设置为不同的行为
