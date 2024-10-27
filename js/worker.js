@@ -16,8 +16,8 @@ const protect_keylist = [
   "password",
 ]
 
-let index_html = "https://github.com/rct15/4fwd.co/Url-Shorten-Worker/" + config.theme + "/index.html"
-let result_html = "https://github.com/rct15/4fwd.co/Url-Shorten-Worker/" + config.theme + "/result.html"
+let index_html = "https://github.com/rct15/4fwd.co/" + config.theme + "/index.html"
+let result_html = "https://github.com/rct15/4fwd.co/" + config.theme + "/result.html"
 
 const html404 = `<!DOCTYPE html>
   <html>
