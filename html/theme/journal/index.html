@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="https://rct15.github.io/4fwd.co/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <title>Net Journal</title>
   <link rel="stylesheet" href="https://rct15.github.io/4fwd.co/css/styles.css">
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
+  <!-- If using CDN resources, uncomment the following line and comment out the one above
     <link rel="stylesheet" href="https://rct15.github.io/4fwd.co/css/styles.css">
   -->
 </head>
@@ -28,28 +28,28 @@
     </div>
 
     <div class="card shadow m-3">
-      <h5 class="card-header">短链系统变身日记本NetJournal</h5>
+      <h5 class="card-header">Short Link System Transformed into Diary Book NetJournal</h5>
       <div class="card-body">
         <h5 class="card-title"> </h5>
 
         <div class="input-group mb-3">
-          <label>记事本内容 Value</label>
+          <label>Notebook Content Value</label>
           <form class="input-group mb-3">
-            <textarea class="form-control" id="longURL" placeholder="输入文本 Input MarkDown" oninput="loadUrlList()"></textarea>
+            <textarea class="form-control" id="longURL" placeholder="Input text Input MarkDown" oninput="loadUrlList()"></textarea>
           </form>
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon2">记事本密码 Key</span>
+            <span class="input-group-text" id="basic-addon2">Notebook Password Key</span>
           <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="">
         </div>
 
         <div class="input-group mb-3">
-          <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">保存 Save</button>
+          <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">Save</button>
         </div>
 
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon3">本系统密码 Password</span>
+          <span class="input-group-text" id="basic-addon3">System Password</span>
           <input class="form-control" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
         </div>
 
@@ -130,11 +130,11 @@
   <script src="https://rct15.github.io/4fwd.co/js/jquery-qrcode.min.js" crossorigin="anonymous"></script>
   <script src="https://rct15.github.io/4fwd.co/js/marked.min.js"></script>
   <script src="https://rct15.github.io/4fwd.co/js/main.js" crossorigin="anonymous"></script>
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
+  <!-- If using CDN resources, uncomment the following line and comment out the one above
     <script src="https://rct15.github.io/4fwd.co/js/main.js" crossorigin="anonymous"></script>
   -->
   <script>
-    // 把MarkDown文本转换为显示
+    // Convert Markdown text to display
     function syncMarkDownView() {
       const markdownContent = document.getElementById('longURL').value;
       const htmlPreview = document.getElementById('html-preview');
@@ -149,7 +149,7 @@
       return valueMarkdown
     }
 
-    // 函数变量的定义和使用请见main.js
+    // Function variable definition and usage please refer to main.js
     buildValueItemFunc = buildValueMarkdown
   </script>
 </body>

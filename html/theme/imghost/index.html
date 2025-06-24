@@ -6,19 +6,19 @@
   <link rel="stylesheet" href="https://rct15.github.io/4fwd.co/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <title>Image Hosting</title>
   <link rel="stylesheet" href="https://rct15.github.io/4fwd.co/css/styles.css">
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
+  <!-- If using CDN resources, uncomment the following line and comment out the one above -->
     <link rel="stylesheet" href="https://rct15.github.io/4fwd.co/css/styles.css">
   -->
 </head>
 <body>
   <div class="d-flex align-items-start flex-wrap">
   <div class="card shadow m-3">
-    <h5 class="card-header">图片转为base64编码</h5>
+    <h5 class="card-header">Convert Image to Base64 Encoding</h5>
     <div class="card-body">
       <h5 class="card-title"></h5>
 
       <div class="mb-3">
-        <label for="input_file" class="form-label">选择文件</label>
+        <label for="input_file" class="form-label">Choose File</label>
         <input class="form-control" type="file" id="input_file" onchange="onFileChange(this)">
       </div>
 
@@ -28,7 +28,7 @@
 
       <div class="form-floating mb-3">
         <textarea class="form-control" placeholder="" id="area_base64" onpaste="setTimeout(base64ToImage, 1)"></textarea>
-        <label for="area_base64">Base64编码</label>
+        <label for="area_base64">Base64 Encoding</label>
       </div>
 
       <div>
@@ -38,34 +38,34 @@
   </div>
 
   <div class="card shadow m-3">
-    <h5 class="card-header">短链系统变身图床Imgage Hosting</h5>
+    <h5 class="card-header">Image Hosting System</h5>
     <div class="card-body">
       <h5 class="card-title"> </h5>
       <div class="input-group mb-3">
         <div class="form-floating mb-3">
           <textarea class="form-control" placeholder="" id="longURL" oninput="loadUrlList()"></textarea>
-          <label for="longURL">Base64编码</label>
+          <label for="longURL">Base64 Encoding</label>
         </div>
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon2">文件名</span>
+        <span class="input-group-text" id="basic-addon2">Filename</span>
         <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="">
       </div>
 
       <div class="input-group mb-3">
-        <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">保存</button>
+        <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">Save</button>
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon3">本系统密码</span>
+        <span class="input-group-text" id="basic-addon3">System Password</span>
         <input class="form-control" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
       </div>
 
     </div>
     
     <div class="card-footer">
-      <span> <a href="https://github.com/crazypeace/Url-Shorten-Worker/" target="_self">Fork me on GitHub</a> </span>
+      <span> <a href="https://github.com/rct15/4fwd.co" target="_self">Fork me on GitHub</a> </span>
     </div>
   </div>
 
@@ -144,11 +144,11 @@
     }
 
     function syncKeyValue() {
-      // 文件名中的空格转换为"-"连字符
-      // 文件名中的 # 字符 转换为"-"连字符
+      // Replace spaces in the file name with hyphens
+      // Replace # characters in the file name with hyphens
       document.getElementById('keyPhrase').value = document.getElementById('input_file').files[0].name.replace(/\s/g, "-").replace(/#/g, "-");
       document.getElementById('longURL').value = document.getElementById('area_base64').value;
-      // 触发input事件
+      // Trigger input event
       document.getElementById("longURL").dispatchEvent(new Event('input', {
         bubbles: true,
         cancelable: true,
@@ -185,7 +185,7 @@
   <script src="https://rct15.github.io/4fwd.co/js/jquery-qrcode.min.js" crossorigin="anonymous"></script>
   
   <script src="https://rct15.github.io/4fwd.co/js/main.js" crossorigin="anonymous"></script>
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
+  <!-- If using CDN resources, uncomment this line and comment out the one above
     <script src="https://rct15.github.io/4fwd.co/js/main.js" crossorigin="anonymous"></script>
   -->
   <script>    

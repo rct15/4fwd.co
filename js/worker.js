@@ -56,7 +56,7 @@ function base64ToBlob(base64String) {
 
 async function randomString(len) {
   len = len || 6;
-  let chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /*去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1 *** Easily confused characters removed */
+  let chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /*Removed easily confused characters oOLl,9gq,Vv,Uu,I1 */
   let maxPos = chars.length;
   let result = '';
   for (i = 0; i < len; i++) {
@@ -119,11 +119,11 @@ async function is_url_exist(url_sha512) {
 async function handleRequest(request) {
   // console.log(request)
 
-  // 查KV中的password对应的值 Query "password" in KV
+  // Query "password" in KV
   const password_value = await LINKS.get("password");
 
   /************************/
-  // 以下是API接口的处理 Below is operation for API
+  // Below is operation for API
 
   if (request.method === "POST") {
     let req = await request.json()
@@ -207,7 +207,7 @@ async function handleRequest(request) {
 
       await LINKS.delete(req_key)
       
-      // 计数功能打开的话, 要把计数的那条KV也删掉 Remove the visit times record
+      // If the counting feature is enabled, delete the corresponding KV record for visit times
       if (config.visit_count) {
         await LINKS.delete(req_key + "-count")
       }
@@ -245,7 +245,7 @@ async function handleRequest(request) {
 
       let keyList = await LINKS.list()
       if (keyList != null) {
-        // 初始化返回数据结构 Init the return struct
+        // Initialize the return data structure
         let jsonObjectRetrun = JSON.parse(`{"status":200, "error":"", "kvlist": []}`);
                 
         for (var i = 0; i < keyList.keys.length; i++) {
@@ -262,7 +262,7 @@ async function handleRequest(request) {
           let url = await LINKS.get(item.name);
           
           let newElement = { "key": item.name, "value": url };
-          // 填充要返回的列表 Fill the return list
+          // Fill the return list
           jsonObjectRetrun.kvlist.push(newElement);
         }
 
@@ -284,7 +284,7 @@ async function handleRequest(request) {
   }
 
   /************************/
-  // 以下是浏览器直接访问worker页面的处理 Below is operation for browser visit worker page
+  // Below is operation for browser visit worker page
 
   const requestURL = new URL(request.url)
   let path = requestURL.pathname.split("/")[1]
@@ -292,7 +292,6 @@ async function handleRequest(request) {
   const params = requestURL.search;
 
   // console.log(path)
-  // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
     let index = await fetch(frontpage_html)
@@ -303,32 +302,28 @@ async function handleRequest(request) {
       })
   }
 
-  // 如果path符合password 显示操作页面index.html
   // if path equals password, return index.html
   if (path == password_value) {
     let index = await fetch(index_html)
     index = await index.text()
     index = index.replace(/__PASSWORD__/gm, password_value)
-    // 操作页面文字修改
-    // index = index.replace(/短链系统变身/gm, "")
+    // Modify page text
+    index = index.replace(/sust/gm, "Short URL System Transformation")
     return new Response(index, {
       headers: response_header,
     })
   }
 
-  // 在KV中查询 短链接 对应的原链接
   // Query the value(long url) in KV by key(short url)
   let value = await LINKS.get(path);
   // console.log(value)
 
-  // 如果path是'password', 让查询结果为空, 不然直接就把password查出来了
   // Protect password. If path equals 'password', set result null
   if (protect_keylist.includes(path)) {
     value = ""
   }
 
   if (!value) {
-    // KV中没有数据, 返回404
     // If request not in KV, return 404
     return new Response(html404, {
       headers: response_header,
@@ -336,9 +331,9 @@ async function handleRequest(request) {
     })
   }
 
-  // 计数功能
+  // Counting feature
   if (config.visit_count) {
-    // 获取并增加访问计数
+    // Get and increment the visit count
     let count = await LINKS.get(path + "-count");
     if (count === null) {
       await LINKS.put(path + "-count", "1"); // 初始化为1，因为这是首次访问
@@ -348,20 +343,19 @@ async function handleRequest(request) {
     }
   }
 
-  // 如果阅后即焚模式
+  // If read-and-delete mode
   if (config.snapchat_mode) {
-    // 删除KV中的记录
-    // Remove record before jump to long url
+    // Remove record from the KV before jump to long url
     await LINKS.delete(path)
   }
 
-  // 带上参数部分, 拼装要跳转的最终网址
+  // Append query parameters, construct the final URL to redirect to
   // URL to jump finally
   if (params) {
     value = value + params
   }
 
-  // 如果自定义了结果页面
+  // If a custom result page is defined
   if (config.result_page) {
     let result_page_html = await fetch(result_html)
     let result_page_html_text = await result_page_html.text()      
@@ -371,18 +365,18 @@ async function handleRequest(request) {
     })
   } 
 
-  // 以下是不使用自定义结果页面的处理
-  // 作为一个短链系统, 需要跳转
+  // Below is the handling for not using a custom result page
+  // As a short link system, it needs to redirect
   if (config.system_type == "shorturl") {
     return Response.redirect(value, 302)
   } else if (config.system_type == "imghost") {
-    // 如果是图床      
+    // If it's an image hosting service
     var blob = base64ToBlob(value)
     return new Response(blob, {
-      // 图片不能指定content-type为 text/plain
+      // Images cannot have a content-type of txt/plain
     })
   } else {
-    // 如果只是一个单纯的key-value系统, 简单的显示value就行了
+    // If it is just a simple key-value system, simply display the value.
     return new Response(value, {
       headers: {
           "Content-type": "text/plain;charset=UTF-8;",

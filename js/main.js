@@ -5,8 +5,7 @@ let password_value = document.querySelector("#passwordText").value
 //let apiSrv = "https://rct15.github.io/4fwd.co/"
 // let password_value = "journaljournal"
 
-// 这是默认行为, 在不同的index.html中可以设置为不同的行为
-// This is default, you can define it to different funciton in different theme index.html
+// This is the default behavior, which can be set to different behaviors in different index.html files.
 let buildValueItemFunc = buildValueTxt
 
 function shorturl() {
@@ -15,7 +14,6 @@ function shorturl() {
     return
   }
   
-  // 短链中不能有空格
   // key can't have space in it
   document.getElementById('keyPhrase').value = document.getElementById('keyPhrase').value.replace(/\s/g, "-");
 
@@ -32,7 +30,7 @@ function shorturl() {
     document.getElementById("addBtn").disabled = false;
     document.getElementById("addBtn").innerHTML = 'Shorten it';
 
-    // 成功生成短链 Succeed
+    // Successfully generated short link
     if (res.status == "200") {
       let keyPhrase = res.key;
       let valueLongURL = document.querySelector("#longURL").value;
@@ -46,7 +44,8 @@ function shorturl() {
       document.getElementById("result").innerHTML = res.error;
     }
 
-    // 弹出消息窗口 Popup the result
+    // Popup the result
+    alert(res.message);
     var modal = new bootstrap.Modal(document.getElementById('resultModal'));
     modal.show();
 
@@ -95,26 +94,24 @@ function copyurl(id, attr) {
 }
 
 function loadUrlList() {
-  // 清空列表
+  // Clear the list
   let urlList = document.querySelector("#urlList")
   while (urlList.firstChild) {
     urlList.removeChild(urlList.firstChild)
   }
 
-  // 文本框中的长链接
+  // The long URL in the text box
   let longUrl = document.querySelector("#longURL").value
   // console.log(longUrl)
 
-  // 遍历localStorage
+  // Iterate through localStorage
   let len = localStorage.length
   // console.log(+len)
   for (; len > 0; len--) {
     let keyShortURL = localStorage.key(len - 1)
     let valueLongURL = localStorage.getItem(keyShortURL)
 
-    // 如果长链接为空，加载所有的localStorage
     // If the long url textbox is empty, load all in localStorage
-    // 如果长链接不为空，加载匹配的localStorage
     // If the long url textbox is not empty, only load matched item in localStorage
     if (longUrl == "" || (longUrl == valueLongURL)) {
       addUrlToList(keyShortURL, valueLongURL)
@@ -131,7 +128,7 @@ function addUrlToList(shortUrl, longUrl) {
   let keyItem = document.createElement('div')
   keyItem.classList.add("input-group")
 
-  // 删除按钮 Remove item button
+  // Remove item button
   let delBtn = document.createElement('button')
   delBtn.setAttribute('type', 'button')  
   delBtn.classList.add("btn", "btn-danger", "rounded-bottom-0")
@@ -140,7 +137,7 @@ function addUrlToList(shortUrl, longUrl) {
   delBtn.innerText = "X"
   keyItem.appendChild(delBtn)
 
-  // 查询访问次数按钮 Query visit times button
+  // Query visit times button
   let qryCntBtn = document.createElement('button')
   qryCntBtn.setAttribute('type', 'button')
   qryCntBtn.classList.add("btn", "btn-info")
@@ -149,13 +146,13 @@ function addUrlToList(shortUrl, longUrl) {
   qryCntBtn.innerText = "?"
   keyItem.appendChild(qryCntBtn)
 
-  // 短链接信息 Short url
+  // Short URL information
   let keyTxt = document.createElement('span')
   keyTxt.classList.add("form-control", "rounded-bottom-0")
   keyTxt.innerText = window.location.protocol + "//" + window.location.host + "/" + shortUrl
   keyItem.appendChild(keyTxt)
 
-  // 显示二维码按钮
+  // Show QR code button
   let qrcodeBtn = document.createElement('button')  
   qrcodeBtn.setAttribute('type', 'button')
   qrcodeBtn.classList.add("btn", "btn-info")
@@ -166,12 +163,12 @@ function addUrlToList(shortUrl, longUrl) {
   
   child.appendChild(keyItem)
 
-  // 插入一个二级码占位
+  // Insert a second-level code placeholder
   let qrcodeItem = document.createElement('div');
   qrcodeItem.setAttribute('id', 'qrcode-' + shortUrl)
   child.appendChild(qrcodeItem)
 
-  // 长链接信息 Long url
+  // Long URL information
   child.appendChild(buildValueItemFunc(longUrl))
 
   urlList.append(child)
@@ -182,11 +179,11 @@ function clearLocalStorage() {
 }
 
 function deleteShortUrl(delKeyPhrase) {
-  // 按钮状态 Button Status
+  // Button Status
   document.getElementById("delBtn-" + delKeyPhrase).disabled = true;
   document.getElementById("delBtn-" + delKeyPhrase).innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
 
-  // 从KV中删除 Remove item from KV
+  // Remove item from KV
   fetch(apiSrv, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -196,12 +193,12 @@ function deleteShortUrl(delKeyPhrase) {
   }).then(function (myJson) {
     res = myJson;
 
-    // 成功删除 Succeed
+    // Successfully deleted
     if (res.status == "200") {
-      // 从localStorage中删除
+      // Remove from localStorage
       localStorage.removeItem(delKeyPhrase)
 
-      // 加载localStorage
+      // Load localStorage
       loadUrlList()
 
       document.getElementById("result").innerHTML = "Delete Successful"
@@ -209,7 +206,7 @@ function deleteShortUrl(delKeyPhrase) {
       document.getElementById("result").innerHTML = res.error;
     }
 
-    // 弹出消息窗口 Popup the result
+    // Popup the result
     var modal = new bootstrap.Modal(document.getElementById('resultModal'));
     modal.show();
 
@@ -220,11 +217,11 @@ function deleteShortUrl(delKeyPhrase) {
 }
 
 function queryVisitCount(qryKeyPhrase) {
-  // 按钮状态 Button Status
+  // Button Status
   document.getElementById("qryCntBtn-" + qryKeyPhrase).disabled = true;
   document.getElementById("qryCntBtn-" + qryKeyPhrase).innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
 
-  // 从KV中查询 Query from KV
+  // Query from KV
   fetch(apiSrv, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -234,12 +231,12 @@ function queryVisitCount(qryKeyPhrase) {
   }).then(function (myJson) {
     res = myJson;
 
-    // 成功查询 Succeed
+    // Succeed
     if (res.status == "200") {
       document.getElementById("qryCntBtn-" + qryKeyPhrase).innerHTML = res.url;
     } else {
       document.getElementById("result").innerHTML = res.error;
-      // 弹出消息窗口 Popup the result
+      // Popup the result
       var modal = new bootstrap.Modal(document.getElementById('resultModal'));
       modal.show();
     }
@@ -256,7 +253,7 @@ function query1KV() {
     return
   }
 
-  // 从KV中查询 Query from KV
+  // Query from KV
   fetch(apiSrv, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -266,18 +263,18 @@ function query1KV() {
   }).then(function (myJson) {
     res = myJson;
 
-    // 成功查询 Succeed
+    // Successful query
     if (res.status == "200") {
       document.getElementById("longURL").value = res.url;
       document.getElementById("keyPhrase").value = qryKeyPhrase;
-      // 触发input事件
+      // Trigger input event
       document.getElementById("longURL").dispatchEvent(new Event('input', {
         bubbles: true,
         cancelable: true,
       }))
     } else {
       document.getElementById("result").innerHTML = res.error;
-      // 弹出消息窗口 Popup the result
+      // Popup the result
       var modal = new bootstrap.Modal(document.getElementById('resultModal'));
       modal.show();
     }
@@ -289,10 +286,10 @@ function query1KV() {
 }
 
 function loadKV() {
-  //清空本地存储
+  // Clear local storage
   clearLocalStorage(); 
 
-  // 从KV中查询, cmd为 "qryall", 查询全部
+  // Query from KV, cmd is "qryall", query all
   fetch(apiSrv, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -301,10 +298,10 @@ function loadKV() {
     return response.json();
   }).then(function (myJson) {
     res = myJson;
-    // 成功查询 Succeed
+    // Successful query
     if (res.status == "200") {
 
-      // 遍历kvlist
+      // Iterate over kvlist
       res.kvlist.forEach(item => {      
         keyPhrase = item.key;
         valueLongURL = item.value;
@@ -314,7 +311,7 @@ function loadKV() {
 
     } else {
       document.getElementById("result").innerHTML = res.error;
-      // 弹出消息窗口 Popup the result
+      // Popup the result
       var modal = new bootstrap.Modal(document.getElementById('resultModal'));
       modal.show();
     }
@@ -324,9 +321,9 @@ function loadKV() {
   })
 }
 
-// 生成二维码
+// Generate QR code
 function buildQrcode(shortUrl) {
-  // 感谢项目 https://github.com/lrsjng/jquery-qrcode
+  // Thank you to the project https://github.com/lrsjng/jquery-qrcode
   var options = {
     // render method: 'canvas', 'image' or 'div'
     render: 'canvas',
@@ -351,8 +348,7 @@ function buildQrcode(shortUrl) {
     // background color or image element, null for transparent background
     background: null,
 
-    // content
-    // 要转换的文本
+    // content: text to convert
     text: window.location.protocol + "//" + window.location.host + "/" + shortUrl,
 
     // corner radius relative to module width: 0.0 .. 0.5
